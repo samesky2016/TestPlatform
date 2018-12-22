@@ -1,0 +1,211 @@
+<#include "/common/layout.html">
+<@header>
+<link rel="stylesheet" href="/plugins/bootstrap-fileinput/css/fileinput.min.css">
+<script type="text/javascript" src="/app/js/app.js"></script>
+
+
+
+</@header>
+<@body>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <small>MD5加密 </small>
+    </h1>
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <!-- Your Page Content Here -->
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#tab_2" data-toggle="tab">MD5加密 </a></li>
+              
+            </ul>
+            <div class="tab-content">
+              	<div class="tab-pane active" id="tab_2">
+               	 <div class="row">
+		         	<div class="col-md-6">
+
+			            <div class="box-body">
+
+					              <div class="form-group">
+					                <label for="sendmsg">原始字符串</label>
+					                <textarea class="form-control" rows="6" cols="80" id="content" name="content" placeholder="请重复输原始字符串"></textarea> 
+					              </div>
+				   
+				               <div class="form-group">
+				               <label for="sendmsg">MD5加密 字符串</label>
+				              	<textarea class="form-control" rows="6" cols="80" name="result" id='result' placeholder="格式化后字符串"></textarea>
+				              	</div>
+			           	<div class="box-footer">
+			              <button type="button" class="btn btn-success" onclick="getMd5('content','result')"><i class="fa fa-save"></i> MD5</button>
+			            </div>
+			              
+			              <#if msg??>
+			              <div class="form-group">
+			              	<div  class="alert alert-danger alert-dismissible">
+						       <h4 style="margin-bottom: 0px;"><i class="fa fa-exclamation-triangle"></i> ${msg!}</h4>
+						    </div>
+			              </div>
+			              </#if>
+			              <#if info??>
+			              <div class="form-group">
+			              	<div  class="alert alert-success alert-dismissible">
+						       <h4 style="margin-bottom: 0px;"><i class="fa fa-info"></i> ${info!}</h4>
+						    </div>
+			              </div>
+			              </#if>
+			            </div><!-- /.box-body -->
+
+
+			        </div>
+	         	   </div>
+              	</div><!-- /.tab-pane -->
+              	
+              </div><!-- /.tab-pane -->
+            </div><!-- /.tab-content -->
+      </div>
+    </div>
+  </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+</@body>
+<@footer>
+<script src="/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
+<script src="/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
+<script type="text/javascript" src="/app/js/md5.js"></script>
+<script>
+//初始化fileinput控件（第一次初始化）
+function initFileInput(ctrlName, uploadUrl) {    
+    var control = $('#' + ctrlName); 
+
+    control.fileinput({
+    	
+    	 initialPreview: [
+             '${(sysUser.userImg)!}'
+         ],
+         initialPreviewAsData: true,
+         initialPreviewConfig: [
+             {caption: "${(sysUser.userImg)!}", size: 930321, width: "120px", key: '${(sysUser.id)!}', showDelete: false}
+         ],
+         deleteUrl: "/file/delete",
+    	
+        language: 'zh', //设置语言
+        uploadUrl: uploadUrl, //上传的地址
+        allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
+        showUpload: false, //是否显示上传按钮
+        showCaption: false,//是否显示标题
+        browseClass: "btn btn-primary"       
+    });
+}
+	
+initFileInput("systemLogo", "/file/upload");
+
+function getMd5(content,result){
+	var contentstr=document.getElementById(content);
+	var resultstr=document.getElementById(result);
+	
+	var md5Str=md5(contentstr.value);
+	var md5StrLower=md5Str.toLowerCase(); 
+	resultstr.value="大写:"+md5Str+"\n"+"小写:"+md5StrLower;
+
+	
+}
+function EncodeUtf8(s1)
+{
+    var s = escape(s1);
+    var sa = s.split("%");
+    var retV ="";
+    if(sa[0] != "")
+    {
+       retV = sa[0];
+    }
+    for(var i = 1; i < sa.length; i ++)
+    {
+         if(sa[i].substring(0,1) == "u")
+         {
+             retV += Hex2Utf8(Str2Hex(sa[i].substring(1,5)));
+              
+         }
+         else retV += "%" + sa[i];
+    }
+     
+    return retV;
+}
+function Str2Hex(s)
+{
+    var c = "";
+    var n;
+    var ss = "0123456789ABCDEF";
+    var digS = "";
+    for(var i = 0; i < s.length; i ++)
+    {
+       c = s.charAt(i);
+       n = ss.indexOf(c);
+       digS += Dec2Dig(eval(n));
+          
+    }
+    //return value;
+    return digS;
+}
+function Dec2Dig(n1)
+{
+    var s = "";
+    var n2 = 0;
+    for(var i = 0; i < 4; i++)
+    {
+       n2 = Math.pow(2,3 - i);
+       if(n1 >= n2)
+       {
+          s += '1';
+          n1 = n1 - n2;
+        }
+       else
+        s += '0';
+         
+    }
+    return s;
+     
+}
+function Dig2Dec(s)
+{
+    var retV = 0;
+    if(s.length == 4)
+    {
+        for(var i = 0; i < 4; i ++)
+        {
+            retV += eval(s.charAt(i)) * Math.pow(2, 3 - i);
+        }
+        return retV;
+    }
+    return -1;
+} 
+function Hex2Utf8(s)
+{
+   var retS = "";
+   var tempS = "";
+   var ss = "";
+   if(s.length == 16)
+   {
+       tempS = "1110" + s.substring(0, 4);
+       tempS += "10" +  s.substring(4, 10); 
+       tempS += "10" + s.substring(10,16); 
+       var sss = "0123456789ABCDEF";
+       for(var i = 0; i < 3; i ++)
+       {
+          retS += "%";
+          ss = tempS.substring(i * 8, (eval(i)+1)*8);
+           
+           
+           
+          retS += sss.charAt(Dig2Dec(ss.substring(0,4)));
+          retS += sss.charAt(Dig2Dec(ss.substring(4,8)));
+       }
+       return retS;
+   }
+   return "";
+} 
+</script>
+</@footer>

@@ -86,6 +86,8 @@ public class ShiroConfiguration {
         Map<String, String> filterMap = new LinkedHashMap<String, String>();
         filterMap.put("/mockTest/**", "anon");
         
+        
+        filterMap.put("/static/**", "anon");
         filterMap.put("/static/**", "anon");
         filterMap.put("/favicon.ico", "anon");
         filterMap.put("/app/**", "anon");

@@ -1,0 +1,116 @@
+<#include "/common/layout.html">
+<@header>
+<link rel="stylesheet" href="/plugins/bootstrap-fileinput/css/fileinput.min.css">
+<script type="text/javascript" src="/app/js/app.js"></script>
+
+
+</@header>
+<@body>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <small>JSON格式化 </small>
+    </h1>
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <!-- Your Page Content Here -->
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#tab_2" data-toggle="tab">JSON格式化</a></li>
+              
+            </ul>
+            <div class="tab-content">
+              	<div class="tab-pane active" id="tab_2">
+               	 <div class="row">
+		         	<div class="col-md-6">
+
+			            <div class="box-body">
+
+					              <div class="form-group">
+					                <label for="sendmsg">原始字符串</label>
+					                <textarea class="form-control" rows="10" cols="120" id="content" name="content" placeholder="请重复输原始字符串"></textarea> 
+					              </div>
+				   
+				               <div class="form-group">
+				               <label for="sendmsg">格式化后字符串</label>
+				              	<textarea class="form-control" rows="10" cols="120" name="result" id='result' placeholder="格式化后字符串"></textarea>
+				              	</div>
+			           	<div class="box-footer">
+			              <button type="button" class="btn btn-success" onclick="jsonFormat('content','result')"><i class="fa fa-save"></i> 格式化</button>
+			            </div>
+			              
+			              <#if msg??>
+			              <div class="form-group">
+			              	<div  class="alert alert-danger alert-dismissible">
+						       <h4 style="margin-bottom: 0px;"><i class="fa fa-exclamation-triangle"></i> ${msg!}</h4>
+						    </div>
+			              </div>
+			              </#if>
+			              <#if info??>
+			              <div class="form-group">
+			              	<div  class="alert alert-success alert-dismissible">
+						       <h4 style="margin-bottom: 0px;"><i class="fa fa-info"></i> ${info!}</h4>
+						    </div>
+			              </div>
+			              </#if>
+			            </div><!-- /.box-body -->
+
+
+			        </div>
+	         	   </div>
+              	</div><!-- /.tab-pane -->
+              	
+              </div><!-- /.tab-pane -->
+            </div><!-- /.tab-content -->
+      </div>
+    </div>
+  </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+</@body>
+<@footer>
+<script src="/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
+<script src="/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
+<script>
+//初始化fileinput控件（第一次初始化）
+function initFileInput(ctrlName, uploadUrl) {    
+    var control = $('#' + ctrlName); 
+
+    control.fileinput({
+    	
+    	 initialPreview: [
+             '${(sysUser.userImg)!}'
+         ],
+         initialPreviewAsData: true,
+         initialPreviewConfig: [
+             {caption: "${(sysUser.userImg)!}", size: 930321, width: "120px", key: '${(sysUser.id)!}', showDelete: false}
+         ],
+         deleteUrl: "/file/delete",
+    	
+        language: 'zh', //设置语言
+        uploadUrl: uploadUrl, //上传的地址
+        allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
+        showUpload: false, //是否显示上传按钮
+        showCaption: false,//是否显示标题
+        browseClass: "btn btn-primary"       
+    });
+}
+	
+initFileInput("systemLogo", "/file/upload");
+
+function jsonFormat(content,result){
+	var contentstr=document.getElementById(content);
+	var resultstr=document.getElementById(result);
+	try{
+		var formatJ=JSON.stringify(JSON.parse(contentstr.value),null,4);
+		resultstr.value=formatJ;
+	}catch(err){
+		resultstr.value=err.message;
+	}
+	
+}
+</script>
+</@footer>
