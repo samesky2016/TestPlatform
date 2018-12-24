@@ -28,8 +28,10 @@
 		         	<div class="col-md-6">
 			       	  <form id='kafkaForm' role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="#">
 			           	<div class="box-footer">
-			              <button type="button" class="btn btn-success" onclick="kafkaSend('kafkaResult')"><i class="fa fa-save"></i>  发 送</button>
+			              <button type="button" class="btn btn-success" onclick="kafkaSend('kafkaResult')"><i class="fa fa-flush"></i>  发 送</button>
+			           <button type="button" class="btn btn-success" onclick="jsonFormat('content','content')"><i class="fa fa-flush"></i>  JSON格式化</button>
 			            </div>
+			            
 			            <div class="box-body">
 			        
 					              <div class="form-group">
@@ -42,7 +44,8 @@
 					              </div>
 					              <div class="form-group">
 					                <label for="sendmsg">发送内容</label>
-					                <textarea class="form-control" rows="6" cols="100" name="content" placeholder="请重复输入发送内容"></textarea> 
+					                
+					                <textarea class="form-control" rows="6" cols="100" name="content" id="content"placeholder="请重复输入发送内容"></textarea> 
 					              </div>
 				   
 				               <div class="form-group">
@@ -108,5 +111,16 @@ function initFileInput(ctrlName, uploadUrl) {
 	
 initFileInput("systemLogo", "/file/upload");
 
+function jsonFormat(content,result){
+	var contentstr=document.getElementById(content);
+	var resultstr=document.getElementById(result);
+	try{
+		var formatJ=JSON.stringify(JSON.parse(contentstr.value),null,4);
+		resultstr.value=formatJ;
+	}catch(err){
+		resultstr.value=err.message;
+	}
+	
+}
 </script>
 </@footer>
