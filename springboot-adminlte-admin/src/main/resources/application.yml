@@ -22,6 +22,19 @@ spring:
                 poolPreparedStatements: true  
                 maxPoolPreparedStatementPerConnectionSize: 20  
                 connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000  
+                
+    #kafka consumer
+    kafka:
+          consumer:
+                enable-auto-commit: true
+                group-id: test10001
+                auto-offset-reset: latest
+                # 批量一次最大拉取数据量
+                max-poll-records: 1000
+                #自动提交
+                auto-commit-interval: 1000
+                bootstrap-servers: 10.10.203.201:9092,10.10.203.202:9092,10.10.203.203:9092  
+              
     freemarker:
        prefix: .html
        content-type: text/html 
@@ -36,6 +49,9 @@ spring:
           number_format: 0
           datetime_format: 0.##########
           template_exception_handler: ignore
+
+        
+          
 #mybatis
 mybatis-plus:
   mapper-locations: classpath:/mapper/*/*Mapper.xml
