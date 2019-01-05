@@ -80,7 +80,7 @@ function jsonFormat(content,result){
 var websocket = null;
 function openWebsocket(topic){
 	 
-
+		document.getElementById('message').value="建立连接中，请稍等..."
 	    //鍒ゆ柇褰撳墠娴忚鍣ㄦ槸鍚︽敮鎸乄ebSocket
 	    if('WebSocket' in window){
 	        websocket = new WebSocket("ws://127.0.0.1:9999/websocket/"+topic);
