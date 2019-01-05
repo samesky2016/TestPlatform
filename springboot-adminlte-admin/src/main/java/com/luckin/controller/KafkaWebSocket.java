@@ -4,22 +4,25 @@ package com.luckin.controller;
 
 
 import java.io.IOException;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import org.apache.kafka.common.utils.CopyOnWriteMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
-@ServerEndpoint(value = "/websocket")
+@ServerEndpoint(value = "/websocket/{param}")
 @Component
 public class KafkaWebSocket {
+	protected static Logger logger = LoggerFactory.getLogger(KafkaWebSocket.class);
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static int onlineCount = 0;
 
@@ -32,16 +35,17 @@ public class KafkaWebSocket {
     /**
      * 连接建立成功调用的方法*/
     @OnOpen
-    public void onOpen(Session session) {
+    public void onOpen(@PathParam(value="param") String param,Session session) {
         this.session = session;
         
-        webSocketSet.put("topic", this);     //加入set中
+        logger.info("----------------topic:"+param);
+        webSocketSet.put(param+session.getId(), this);     //加入set中
         addOnlineCount();           //在线数加1
-        System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
+        logger.info("有新连接加入！当前在线人数为" + getOnlineCount());
         try {
             sendMessage("连接已建立~!");
         } catch (IOException e) {
-            System.out.println("IO异常");
+        	logger.error("IO异常"+e.getMessage());
         }
     }
 
@@ -49,10 +53,10 @@ public class KafkaWebSocket {
      * 连接关闭调用的方法
      */
     @OnClose
-    public void onClose() {
-        webSocketSet.remove(this);  //从set中删除
+    public void onClose(@PathParam(value="param") String param,Session session) {
+        webSocketSet.remove(param+session.getId());  //从set中删除
         subOnlineCount();           //在线数减1
-        System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
+        logger.info("有一连接关闭！当前在线人数为" + getOnlineCount());
     }
 
     /**
@@ -61,7 +65,7 @@ public class KafkaWebSocket {
      * @param message 客户端发送过来的消息*/
     @OnMessage
     public void onMessage(String message, Session session) {
-        System.out.println("来自客户端的消息:" + message);
+    	logger.info("来自客户端的消息:" + message);
         
         //群发消息
         for (KafkaWebSocket item : webSocketSet.values()) {
@@ -76,7 +80,7 @@ public class KafkaWebSocket {
   
     @OnError
     public void onError(Session session, Throwable error) {
-        System.out.println("发生错误");
+    	logger.error("发生错误");
         error.printStackTrace();
     }
 
@@ -87,11 +91,13 @@ public class KafkaWebSocket {
     }
 
 
-    public static void sendInfo(String message) throws IOException {
-        for (KafkaWebSocket item : webSocketSet.values()) {
+    public static void sendInfo(String topic,String message) throws IOException {
+        for (String item : webSocketSet.keySet()) {
         	
             try {
-            	item.sendMessage(message);
+            	if(item.contains(topic)){
+            		webSocketSet.get(item).sendMessage(message);
+            	}
                 
             } catch (IOException e) {
                 continue;
@@ -112,10 +118,21 @@ public class KafkaWebSocket {
     }
     
     @KafkaListener(topics = {"mb.park.in"})
-    public void receive(String message){
+    public void receiveIn(String message){
     	try {
-    		sendMessage(message);
-			 System.out.println("test10001--消费消息:" + message);
+    		 sendInfo("mb.park.in",message);
+    		 logger.info("test10001--消费消息:" + message);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+       
+    }
+    @KafkaListener(topics = {"mb.park.out"})
+    public void receiveoUt(String message){
+    	try {
+    		 sendInfo("mb.park.out",message);
+    		 logger.info("test10001--消费消息:" + message);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

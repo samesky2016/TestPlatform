@@ -24,7 +24,7 @@ import com.luckin.service.MockService;
  * 
  */
 @Controller
-@RequestMapping("/kafkaConsumer")
+@RequestMapping("/kafkaProducer")
 public class KafkaProducerController {
 
 	protected static Logger logger = LoggerFactory.getLogger(KafkaProducerController.class);
@@ -32,7 +32,7 @@ public class KafkaProducerController {
 	@RequestMapping("/view")
 	public String view() {
 
-		return "kafka/consumer";
+		return "kafka/producer";
 	}
 
 	@RequestMapping("/send")

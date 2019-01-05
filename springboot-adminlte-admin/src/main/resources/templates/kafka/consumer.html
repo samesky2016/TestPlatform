@@ -1,66 +1,143 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <title>My WebSocket</title>
-</head>
+<#include "/common/layout.html">
+<@header>
+<link rel="stylesheet" href="/plugins/bootstrap-fileinput/css/fileinput.min.css">
 
-<body>
-Welcome<br/>
-<input id="text" type="text" /><button onclick="send()">Send</button>    <button onclick="closeWebSocket()">Close</button>
-<div id="message">
-</div>
-</body>
 
-<script type="text/javascript">
-    var websocket = null;
 
-    //判断当前浏览器是否支持WebSocket
-    if('WebSocket' in window){
-        websocket = new WebSocket("ws://127.0.0.1:9999/websocket");
-    }
-    else{
-        alert('Not support websocket')
-    }
+</@header>
+<@body>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <small>Kafka > 消费者</small>
+    </h1>
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <!-- Your Page Content Here -->
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#tab_2" data-toggle="tab">消费者</a></li>
+            </ul>
+            <div class="tab-content">
+              	<div class="tab-pane active" id="tab_2">
+               	 <div class="row">
+		         	<div class="col-md-6">
+			       	 
+			           	<div class="box-footer">
+			            <input id="text" type="text" value="mb.park.in" /> 
+			           <button class="btn btn-success" onclick="openWebsocket(document.getElementById('text').value)">Open</button>
+			              
+			           <button class="btn btn-success" onclick="closeWebSocket()">Close</button>
+			           <button class="btn btn-success" onclick="clean()">Clean</button>
+					   
+			            </div>
+			            
+			            <div class="box-body">
 
-    //连接发生错误的回调方法
-    websocket.onerror = function(){
-        setMessageInnerHTML("error");
-    };
+			             
 
-    //连接成功建立的回调方法
-    websocket.onopen = function(event){
-        setMessageInnerHTML("open");
-    }
+			       
+			              <div class="form-group" >
+			              	
+						    <textarea rows="20" cols="150" id="message"></textarea>   
+						   
+			              </div>
+			            
+			            </div><!-- /.box-body -->
 
-    //接收到消息的回调方法
-    websocket.onmessage = function(event){
-        setMessageInnerHTML(event.data);
-    }
+			          
+			        </div>
+	         	   </div>
+              	</div><!-- /.tab-pane -->
+              	
+              </div><!-- /.tab-pane -->
+            </div><!-- /.tab-content -->
+      </div>
+    </div>
+  </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+</@body>
+<@footer>
 
-    //连接关闭的回调方法
-    websocket.onclose = function(){
-        setMessageInnerHTML("close");
-    }
+<script>
 
-    //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
-    window.onbeforeunload = function(){
-        websocket.close();
-    }
 
-    //将消息显示在网页上
-    function setMessageInnerHTML(innerHTML){
-        document.getElementById('message').innerHTML += innerHTML + '<br/>';
-    }
+function jsonFormat(content,result){
+	var contentstr=document.getElementById(content);
+	var resultstr=document.getElementById(result);
+	try{
+		var formatJ=JSON.stringify(JSON.parse(contentstr.value),null,4);
+		resultstr.value=formatJ;
+	}catch(err){
+		resultstr.value=err.message;
+	}
+	
+}
+var websocket = null;
+function openWebsocket(topic){
+	 
 
-    //关闭连接
-    function closeWebSocket(){
-        websocket.close();
-    }
+	    //鍒ゆ柇褰撳墠娴忚鍣ㄦ槸鍚︽敮鎸乄ebSocket
+	    if('WebSocket' in window){
+	        websocket = new WebSocket("ws://127.0.0.1:9999/websocket/"+topic);
+	    }
+	    else{
+	        alert('Not support websocket')
+	    }
 
-    //发送消息
-    function send(){
-        var message = document.getElementById('text').value;
-        websocket.send(message);
-    }
+	    //杩炴帴鍙戠敓閿欒鐨勫洖璋冩柟娉�
+	    websocket.onerror = function(){
+	        setMessageInnerHTML("error");
+	    };
+
+	    //杩炴帴鎴愬姛寤虹珛鐨勫洖璋冩柟娉�
+	    websocket.onopen = function(event){
+	        setMessageInnerHTML("open");
+	    }
+
+	    //鎺ユ敹鍒版秷鎭殑鍥炶皟鏂规硶
+	    websocket.onmessage = function(event){
+	        setMessageInnerHTML(event.data);
+	    }
+
+	    //杩炴帴鍏抽棴鐨勫洖璋冩柟娉�
+	    websocket.onclose = function(){
+	        setMessageInnerHTML("close");
+	    }
+
+	    //鐩戝惉绐楀彛鍏抽棴浜嬩欢锛屽綋绐楀彛鍏抽棴鏃讹紝涓诲姩鍘诲叧闂瓀ebsocket杩炴帴锛岄槻姝㈣繛鎺ヨ繕娌℃柇寮�灏卞叧闂獥鍙ｏ紝server绔細鎶涘紓甯搞��
+	    window.onbeforeunload = function(){
+	        websocket.close();
+	    }
+}
+
+//灏嗘秷鎭樉绀哄湪缃戦〉涓�
+function setMessageInnerHTML(innerHTML){
+	if(document.getElementById('message').value.length>10000){
+		document.getElementById('message').value="";
+	}
+	document.getElementById('message').value += innerHTML + '\n';
+	
+    
+}
+
+function clean(){
+	document.getElementById('message').value="";
+}
+
+//鍏抽棴杩炴帴
+function closeWebSocket(){
+    websocket.close();
+}
+
+//鍙戦�佹秷鎭�
+function send(){
+    var message = document.getElementById('text').value;
+    websocket.send(message);
+}
 </script>
-</html>
+</@footer>
