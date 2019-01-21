@@ -2,13 +2,7 @@ package com.luckin;
 
 
 
-import java.io.IOException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
-
-import com.luckin.controller.KafkaWebSocket;
 
 /**
  * 消费者

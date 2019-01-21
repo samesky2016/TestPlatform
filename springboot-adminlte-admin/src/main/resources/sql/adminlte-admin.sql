@@ -321,3 +321,22 @@ CREATE TABLE `mock` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='测试用例表';
 
+CREATE TABLE `performance` (
+  `id` varchar(32) NOT NULL,
+  `Label` varchar(64) DEFAULT NULL,
+  `Samples` varchar(255) DEFAULT NULL,
+  `Average` varchar(64) DEFAULT NULL,
+  `Median` varchar(64) DEFAULT NULL,
+  `Line90` varchar(64) DEFAULT NULL,
+  `Line95` varchar(64) DEFAULT NULL,
+  `Line99` varchar(64) DEFAULT NULL,
+  `Min` varchar(64) DEFAULT NULL,
+  `Max` varchar(64) DEFAULT NULL,
+  `Error` varchar(64) DEFAULT NULL,
+  `Throughput` varchar(64) DEFAULT NULL,
+  `Received` varchar(255) DEFAULT NULL,
+  `Sent` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+

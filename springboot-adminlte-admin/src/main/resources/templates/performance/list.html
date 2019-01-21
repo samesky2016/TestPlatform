@@ -1,0 +1,105 @@
+<#include "/common/layout.html">
+<@header>
+<link rel="stylesheet" media="screen" href="../../../app/css/style.css">
+
+</@header>
+<@body>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <small>性能测试> 性能基线库</small>
+    </h1>
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <!-- Your Page Content Here -->
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+           <form action="/performance/list/1" method="post" class="form-inline">
+	          <div class="box-header">
+	            <div class="input-group">
+		            <a class="btn btn-primary dialog" href="javascript:;" data-url="/performance/add" data-title="新增性能基线" data-width="850" data-height="550"><i class="fa fa-plus"></i> 创建性能基线</a>
+	            </div>
+	            <div class="input-group">
+	               <input type="text" name="search" value="${search!}" class="form-control" placeholder="Search">
+	               <div class="input-group-btn">
+	                 <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+	                 <a href="/performance/list/1" class="btn btn-default"><i class="fa fa-refresh"></i></a>
+	               </div>
+	            </div>
+	            <div class="input-group pull-right">
+                <!-- 
+                <button type="button" class="btn btn-primary btn-flat" onclick="exportTo('性能测试基线数据');"><i class="fa fa-file-excel-o"></i> 导出</button>
+                -->
+                <button type="button" class="btn btn-primary btn-flat" onclick="exportToTable('performanceTable');"><i class="fa fa-file-excel-o"></i> 导出</button>
+            </div>
+	          </div><!-- /.box-header -->
+           </form>
+          <div class="box-body table-responsive no-padding">
+            <table class="table  table-striped table-content" id="performanceTable">
+				<thead>
+				<tr>
+					<th style="width: 60px">行号</th>
+					<th style="width: 120px">Label</th>
+					<th style="width: 80px">Samples</th>
+					<th style="width: 80px">Average</th>
+					<th style="width: 80px">Median</th>
+					<th style="width: 80px">90% Line</th>
+					<th style="width: 80px">95% Line</th>
+					<th style="width: 80px">99% Line</th>
+					<th style="width: 80px">Min</th>
+					<th style="width: 80px">Max</th>
+					<th style="width: 80px">Error %</th>
+					<th style="width: 100px">Throughput</th>
+					<th style="width: 150px">Received KB/sec</th>
+					<th style="width: 120px">Sent KB/sec</th>
+					
+				</tr>
+				</thead>
+				<tbody>
+				<#list pageData.getRecords() as performanceList>
+				<tr>
+				<tr>
+					<td>
+						<label>
+							${((pageData.current-1)*pageData.size +performanceList_index+1)!}
+						</label>
+					</td>
+					<td class="content table-content-hidden">${(performanceList.Label)!}</td>
+					<td class="content table-content-hidden">${(performanceList.Samples)!}</td>
+					<td class="content table-content-hidden">${(performanceList.Average)!}</td>
+					<td class="content table-content-hidden">${(performanceList.Median)!}</td>
+					<td class="content table-content-hidden">${(performanceList.Line90)!}</td>
+					<td class="content table-content-hidden">${(performanceList.Line95)!}</td>
+					<td class="content table-content-hidden">${(performanceList.Line99)!}</td>
+					<td class="content table-content-hidden">${(performanceList.Min)!}</td>
+					<td class="content table-content-hidden">${(performanceList.Max)!}</td>
+					<td class="content table-content-hidden">${(performanceList.Error)!}</td>
+					<td class="content table-content-hidden">${(performanceList.Throughput)!}</td>
+					<td class="content table-content-hidden">${(performanceList.Received)!}</td>
+					<td class="content table-content-hidden">${(performanceList.Sent)!}</td>
+				</tr>
+				</#list>
+				</tbody>
+            </table>
+          </div><!-- /.box-body -->
+          <div class="box-footer row">
+            <div class="col-md-6">
+         	  <#include "/common/paginateBar.html" />
+	  		  <@paginate pageData=pageData actionUrl="/performance/list/" urlParas="?search=${search!}&daterange=${daterange!}"  />
+            </div>
+            <div class="col-md-6 pull-left">
+	             <#include "/common/paginate.html" />
+	  			 <@paginate currentPage=pageData.getCurrent() totalPage=pageData.getPages() actionUrl="/performance/list/" urlParas="?search=${search!}&pageSize=${pageSize!}"  />
+            </div>
+          </div>
+        </div><!-- /.box -->
+      </div>
+    </div>
+  </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+</@body>
+<@footer>
+</@footer>

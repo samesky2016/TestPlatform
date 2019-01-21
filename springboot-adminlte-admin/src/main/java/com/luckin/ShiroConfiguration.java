@@ -88,7 +88,7 @@ public class ShiroConfiguration {
         
         
         filterMap.put("/static/**", "anon");
-    
+        
         filterMap.put("/favicon.ico", "anon");
         filterMap.put("/app/**", "anon");
         filterMap.put("/plugins/**", "anon");

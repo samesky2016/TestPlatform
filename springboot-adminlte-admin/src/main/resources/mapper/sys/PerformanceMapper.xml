@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luckin.mapper.PerformanceMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.luckin.entity.Performance">
+		<id column="id" property="id" />
+		<result column="Label" property="Label" />
+		<result column="createTime" property="createTime" />
+		<result column="Samples" property="Samples" />
+		<result column="Average" property="Average" />
+		<result column="Median" property="Median" />
+		<result column="Line90" property="Line90" />
+		<result column="Line95" property="Line95" />
+		<result column="Line99" property="Line99" />
+		<result column="Min" property="Min" />
+		
+		<result column="Max" property="Max" />
+		<result column="Error" property="Error" />
+		<result column="Throughput" property="Throughput" />
+		
+		<result column="Received" property="Received" />
+		<result column="Sent" property="Sent" />
+		<result column="projectId" property="projectId" />
+	</resultMap>
+	
+	<select id="selectTestcaseList" resultType="java.util.HashMap">
+	
+		SELECT p.*,d.`projectName` FROM `performance` p
+		LEFT JOIN `project` d ON d.`id` = p.`projectId` WHERE 1=1
+		<if test="search != null">
+			AND p.Label LIKE CONCAT('%',#{search,jdbcType=VARCHAR},'%')
+		</if>
+		ORDER BY p.`createTime` DESC
+	</select>
+		<select id="selectOne" resultType="java.util.HashMap">
+	
+		SELECT p.responseParameter,m.responseCode FROM `Performance` p 
+		WHERE p.status='NORMAL' 
+			and p.path =#{uri,jdbcType=VARCHAR}
+
+	</select>
+	
+
+</mapper>
