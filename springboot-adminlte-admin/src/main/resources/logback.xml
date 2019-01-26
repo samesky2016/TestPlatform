@@ -11,13 +11,13 @@
 			<!-- 按照每天生成日志文件 -->  
 			<appender name="DATELOG" class="ch.qos.logback.core.rolling.RollingFileAppender">  
 				
-				<File>${LOG_HOME}JSPlatform.log</File>
+				<File>${LOG_HOME}jsPlatform.log</File>
 				<filter class="ch.qos.logback.classic.filter.LevelFilter"> 
 					<level>ERROR</level> 
 					<onMatch>DENY</onMatch> 
 				</filter>
 		        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-		            <FileNamePattern>${LOG_HOME}/JSPlatform.%i.bak</FileNamePattern>
+		            <FileNamePattern>${LOG_HOME}/jsPlatform.%i.bak</FileNamePattern>
 		            <MinIndex>1</MinIndex>
 		            <MaxIndex>30</MaxIndex>
 		        </rollingPolicy>
@@ -34,14 +34,14 @@
 			<!-- 按照每天生成日志文件   错误信息 -->  
 			<appender name="DATELOG_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">  
 			   
-				<File>${LOG_HOME}JSPlatform.error.log</File>
+				<File>${LOG_HOME}jsPlatform.error.log</File>
 				<filter class="ch.qos.logback.classic.filter.LevelFilter"> 
 					<level>ERROR</level> 
 					<onMatch>ACCEPT</onMatch> 
 					<onMismatch>DENY</onMismatch> 
 				</filter>
 		        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-		            <FileNamePattern>${LOG_HOME}/JSPlatform.error.%i.bak</FileNamePattern>
+		            <FileNamePattern>${LOG_HOME}/jsPlatform.error.%i.bak</FileNamePattern>
 		            <MinIndex>1</MinIndex>
 		            <MaxIndex>30</MaxIndex>
 		        </rollingPolicy>

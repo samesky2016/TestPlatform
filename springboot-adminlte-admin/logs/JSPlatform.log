@@ -1,0 +1,5 @@
+2019-01-26 10:46:58.337 [restartedMain] INFO  com.luckin.SpringbootAdminlteAdminApplication[48] - Starting SpringbootAdminlteAdminApplication on js-PC with PID 9920 (C:\Users\Administrator\TestPlatform.git\springboot-adminlte-admin\target\classes started by Administrator in C:\Users\Administrator\TestPlatform.git\springboot-adminlte-admin)
+2019-01-26 10:46:58.346 [restartedMain] INFO  com.luckin.SpringbootAdminlteAdminApplication[593] - No active profile set, falling back to default profiles: default
+2019-01-26 10:47:00.890 [restartedMain] INFO  c.a.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure[56] - Init DruidDataSource
+2019-01-26 10:47:01.945 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource[928] - {dataSource-1} inited
+2019-01-26 10:47:13.006 [restartedMain] INFO  com.luckin.SpringbootAdminlteAdminApplication[57] - Started SpringbootAdminlteAdminApplication in 15.068 seconds (JVM running for 15.678)
