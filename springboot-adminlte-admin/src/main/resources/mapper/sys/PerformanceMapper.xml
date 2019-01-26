@@ -6,6 +6,7 @@
 	<resultMap id="BaseResultMap" type="com.luckin.entity.Performance">
 		<id column="id" property="id" />
 		<result column="Label" property="Label" />
+		<result column="ThreadNum" property="ThreadNum" />
 		<result column="createTime" property="createTime" />
 		<result column="Samples" property="Samples" />
 		<result column="Average" property="Average" />

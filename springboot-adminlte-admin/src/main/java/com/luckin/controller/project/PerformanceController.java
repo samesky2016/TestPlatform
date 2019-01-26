@@ -81,7 +81,7 @@ public class PerformanceController extends SuperController{
     @RequestMapping("/caseresult/{id}")
     public  String caseresult(@PathVariable String id,Model model){
     	Performance performance = performanceService.selectById(id);
-        model.addAttribute("mock",performance);
+        model.addAttribute("performance",performance);
         model.addAttribute("projectList", projectService.selectList(null));
         return "performance/caseresult";
     }
@@ -91,7 +91,7 @@ public class PerformanceController extends SuperController{
     @RequestMapping("/edit/{id}")  
     public  String edit(@PathVariable String id,Model model){
     	Performance performance = performanceService.selectById(id);
-    	model.addAttribute("mock",performance);
+    	model.addAttribute("performance",performance);
 
     	model.addAttribute("projectList", projectService.selectList(null));
     	return "performance/edit";
@@ -112,8 +112,8 @@ public class PerformanceController extends SuperController{
      */
     @RequestMapping("/checkName")  
     @ResponseBody
-    public Rest checkName(String mockName){
-    	List<Performance> list = performanceService.selectList(new EntityWrapper<Performance>().eq("mockName", mockName));
+    public Rest checkName(String Label){
+    	List<Performance> list = performanceService.selectList(new EntityWrapper<Performance>().eq("Label", Label));
     	if(list.size() > 0){
     		return Rest.failure("用例已存在");
     	}

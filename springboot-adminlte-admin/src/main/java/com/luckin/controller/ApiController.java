@@ -1,5 +1,6 @@
 package com.luckin.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alibaba.fastjson.JSON;
 import com.luckin.service.MockService;
 
 /**
@@ -43,7 +45,9 @@ public class ApiController {
 		}
 
 		String uri = req.getRequestURI();
+		
 		logger.info("------------------->>uri:" + uri);
+		logger.info("------------------->>request:"+ReadAsChars(req) );
 
 		String result = "";
 		Map<Object, Object> resultMap = queryReponsParam(uri);
@@ -83,4 +87,44 @@ public class ApiController {
 			return null;
 		}
 	}
+	
+	// 字符串读取
+    // 方法一
+    public static String ReadAsChars(HttpServletRequest request)
+    {
+ 
+        BufferedReader br = null;
+        StringBuilder sb = new StringBuilder("");
+        try
+        {
+            br = request.getReader();
+            String str;
+            while ((str = br.readLine()) != null)
+            {
+                sb.append(str);
+            }
+            br.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            if (null != br)
+            {
+                try
+                {
+                    br.close();
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return sb.toString();
+    }
+ 
+
 }

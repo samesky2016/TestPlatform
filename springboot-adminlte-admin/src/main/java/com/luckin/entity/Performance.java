@@ -32,7 +32,14 @@ public class Performance extends Model<Performance> {
 	private String id;
 
 	private String Label;
+	private String ThreadNum;
 	
+	public String getThreadNum() {
+		return ThreadNum;
+	}
+	public void setThreadNum(String threadNum) {
+		ThreadNum = threadNum;
+	}
 	private Date createTime;
 
 	public Date getCreateTime() {

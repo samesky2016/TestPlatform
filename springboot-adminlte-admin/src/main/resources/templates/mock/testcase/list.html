@@ -42,10 +42,11 @@
 					<th>接口名称</th>
 					<th>接口地址</th>
 					<th style="width: 150px">返回参数</th>
+					<th>返回码</th>
 					<th>参数类型</th>
 					<th>项目名称</th>
 					<th style="width: 150px">创建时间</th>
-					<th style="width: 50px">备注</th>
+					<th style="width: 150px">备注</th>
 					<th style='text-align: center;'width="120px">操作</th>
 				</tr>
 				</thead>
@@ -61,6 +62,7 @@
 					<td class="content table-content-hidden">${(mocklist.mockName)!}</td>
 					<td class="content table-content-hidden">${(mocklist.path)!}</td>
 					<td class="content table-content-hidden">${(mocklist.responseParameter)!}</td>
+					<td class="content table-content-hidden">${(mocklist.responseCode)!}</td>
 					<td class="content table-content-hidden">${(mocklist.contenttype)!}</td>
 					<td class="content table-content-hidden">${(mocklist.projectName)!'--'}</td>
 					<td class="content table-content-hidden">${(mocklist.createTime?string('yyyy/MM/dd HH:mm:ss'))!}</td>
