@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.enums.IdType;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
 
 /**
  * <p>
@@ -17,6 +19,7 @@ import java.util.Date;
  * @author wenbin.huang
  * @since 2018-11-01
  */
+@Component
 @TableName("mock")
 public class Mock extends Model<Mock> {
 

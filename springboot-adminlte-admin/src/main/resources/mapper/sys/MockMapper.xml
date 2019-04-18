@@ -27,7 +27,7 @@
 	</select>
 		<select id="selectOne" resultType="java.util.HashMap">
 	
-		SELECT m.responseParameter,m.responseCode FROM `mock` m 
+		SELECT m.id,m.responseParameter,m.responseCode FROM `mock` m 
 		WHERE m.status='NORMAL' 
 			and m.path =#{uri,jdbcType=VARCHAR}
 

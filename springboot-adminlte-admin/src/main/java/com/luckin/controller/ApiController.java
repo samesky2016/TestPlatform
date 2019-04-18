@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSON;
+import com.luckin.entity.Mock;
 import com.luckin.service.MockService;
 
 /**
@@ -30,6 +31,9 @@ public class ApiController {
 	@Autowired
 	private MockService mockService;
 
+	@Autowired
+	private Mock mock;
+	
 	protected static Logger logger = LoggerFactory.getLogger(ApiController.class);
 
 	// api调用进入到指定的过滤器
@@ -47,6 +51,7 @@ public class ApiController {
 		String uri = req.getRequestURI();
 		
 		logger.info("------------------->>uri:" + uri);
+		
 		logger.info("------------------->>request:"+ReadAsChars(req) );
 
 		String result = "";
@@ -79,6 +84,52 @@ public class ApiController {
 
 	}
 
+	
+		// api调用动态修改返回值
+		@RequestMapping("/editMockResponse")
+		public void editMockResponse(HttpServletRequest req, HttpServletResponse res) {
+
+			try {
+				req.setCharacterEncoding("utf-8");
+				res.setCharacterEncoding("utf-8");
+			} catch (UnsupportedEncodingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			String requestParams=ReadAsChars(req);
+			Map<String, String> reqMap=JSON.parseObject(requestParams, Map.class);
+			String uri = reqMap.get("uri");
+			Map<Object, Object> resultMap = queryReponsParam(uri);
+			
+			logger.info("------------------->>uri:" + uri);
+			
+			logger.info("------------------->>requestParams:"+requestParams );
+
+
+			PrintWriter out = null;
+			try {
+				mock.setId(resultMap.get("id").toString());
+				mock.setPath(reqMap.get("uri"));
+				mock.setResponseCode(reqMap.getOrDefault("responseCode", "200"));
+				mock.setResponseParameter(reqMap.getOrDefault("newResponseStr","success"));
+				
+				mockService.updateMock(mock);
+				
+				out = res.getWriter();
+				out.write("success");
+				out.flush();
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				logger.error("------------------->>" + e.getMessage());
+				e.printStackTrace();
+			} finally {
+				out.close();
+			}
+
+		}
+	
 	public Map<Object, Object> queryReponsParam(String uri) {
 		List<Map<Object, Object>> result = mockService.query(uri);
 		if (result != null && result.size() > 0) {
