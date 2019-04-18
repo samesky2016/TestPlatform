@@ -3,3 +3,102 @@
 2019-01-26 10:47:00.890 [restartedMain] INFO  c.a.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure[56] - Init DruidDataSource
 2019-01-26 10:47:01.945 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource[928] - {dataSource-1} inited
 2019-01-26 10:47:13.006 [restartedMain] INFO  com.luckin.SpringbootAdminlteAdminApplication[57] - Started SpringbootAdminlteAdminApplication in 15.068 seconds (JVM running for 15.678)
+2019-01-29 19:09:51.925 [restartedMain] INFO  com.luckin.SpringbootAdminlteAdminApplication[48] - Starting SpringbootAdminlteAdminApplication on js-PC with PID 2908 (C:\Users\Administrator\TestPlatform.git\springboot-adminlte-admin\target\classes started by Administrator in C:\Users\Administrator\TestPlatform.git\springboot-adminlte-admin)
+2019-01-29 19:09:51.966 [restartedMain] INFO  com.luckin.SpringbootAdminlteAdminApplication[593] - No active profile set, falling back to default profiles: default
+2019-01-29 19:09:59.895 [restartedMain] INFO  c.a.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure[56] - Init DruidDataSource
+2019-01-29 19:10:04.354 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource[928] - {dataSource-1} inited
+2019-01-29 19:10:21.321 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource[1823] - {dataSource-1} closed
+2019-01-29 19:13:35.723 [restartedMain] INFO  com.luckin.SpringbootAdminlteAdminApplication[48] - Starting SpringbootAdminlteAdminApplication on js-PC with PID 13360 (C:\Users\Administrator\TestPlatform.git\springboot-adminlte-admin\target\classes started by Administrator in C:\Users\Administrator\TestPlatform.git\springboot-adminlte-admin)
+2019-01-29 19:13:35.726 [restartedMain] INFO  com.luckin.SpringbootAdminlteAdminApplication[593] - No active profile set, falling back to default profiles: default
+2019-01-29 19:13:38.339 [restartedMain] INFO  c.a.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure[56] - Init DruidDataSource
+2019-01-29 19:13:39.359 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource[928] - {dataSource-1} inited
+2019-01-29 19:13:42.367 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource[1823] - {dataSource-1} closed
+2019-01-29 19:17:41.476 [restartedMain] INFO  com.luckin.SpringbootAdminlteAdminApplication[48] - Starting SpringbootAdminlteAdminApplication on js-PC with PID 10148 (C:\Users\Administrator\TestPlatform.git\springboot-adminlte-admin\target\classes started by Administrator in C:\Users\Administrator\TestPlatform.git\springboot-adminlte-admin)
+2019-01-29 19:17:41.480 [restartedMain] INFO  com.luckin.SpringbootAdminlteAdminApplication[593] - No active profile set, falling back to default profiles: default
+2019-01-29 19:17:44.098 [restartedMain] INFO  c.a.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure[56] - Init DruidDataSource
+2019-01-29 19:17:45.128 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource[928] - {dataSource-1} inited
+2019-01-29 19:17:51.591 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource[1823] - {dataSource-1} closed
+2019-01-29 19:20:09.721 [restartedMain] INFO  com.luckin.SpringbootAdminlteAdminApplication[48] - Starting SpringbootAdminlteAdminApplication on js-PC with PID 12376 (C:\Users\Administrator\TestPlatform.git\springboot-adminlte-admin\target\classes started by Administrator in C:\Users\Administrator\TestPlatform.git\springboot-adminlte-admin)
+2019-01-29 19:20:09.724 [restartedMain] INFO  com.luckin.SpringbootAdminlteAdminApplication[593] - No active profile set, falling back to default profiles: default
+2019-01-29 19:20:12.299 [restartedMain] INFO  c.a.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure[56] - Init DruidDataSource
+2019-01-29 19:20:13.231 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource[928] - {dataSource-1} inited
+2019-01-29 19:20:25.625 [restartedMain] INFO  com.luckin.SpringbootAdminlteAdminApplication[57] - Started SpringbootAdminlteAdminApplication in 16.345 seconds (JVM running for 16.925)
+2019-01-29 19:22:50.158 [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] INFO  com.luckin.controller.KafkaWebSocket[145] - test10001--消费消息:{
+    "isReal": 0,
+    "inOperator": "用户管理员",
+    "equipName": "入口_230",
+    "parkName": "胡国彪测试车场",
+    "equipCode": "1",
+    "idno": "藏-SZX910",
+    "inTime": "2019-01-29 19:52:00",
+    "carNumber": "藏-SZX910",
+    "itemId": "5de13da5911239cca1bb411d1ab2b11f",
+    "parkCode": "Test_huguobiao",
+    "inCarPhoto": "0000008702/NISSP_IMG_PARK_OUT/20180903/0054d387b88a47aeac73eba2c7fed207"
+}
+2019-01-29 19:24:48.323 [restartedMain] INFO  com.luckin.SpringbootAdminlteAdminApplication[48] - Starting SpringbootAdminlteAdminApplication on js-PC with PID 4372 (C:\Users\Administrator\TestPlatform.git\springboot-adminlte-admin\target\classes started by Administrator in C:\Users\Administrator\TestPlatform.git\springboot-adminlte-admin)
+2019-01-29 19:24:48.326 [restartedMain] INFO  com.luckin.SpringbootAdminlteAdminApplication[593] - No active profile set, falling back to default profiles: default
+2019-01-29 19:24:50.872 [restartedMain] INFO  c.a.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure[56] - Init DruidDataSource
+2019-01-29 19:24:51.908 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource[928] - {dataSource-1} inited
+2019-01-29 19:25:02.504 [restartedMain] INFO  com.luckin.SpringbootAdminlteAdminApplication[57] - Started SpringbootAdminlteAdminApplication in 14.562 seconds (JVM running for 15.156)
+2019-01-29 19:27:37.622 [org.springframework.kafka.KafkaListenerEndpointContainer#1-0-C-1] INFO  com.luckin.controller.KafkaWebSocket[166] - test10001--消费消息:{
+    "overTimeYSMoney": 8,
+    "overTimeHGMoney": 0,
+    "feestime": "2018-11-27 09:55:00",
+    "equipmentId": "15172ab3cc07425cbb2e2a7bc62c9f88",
+    "parkId": "b29efd2bb10242429940212fc5249758",
+    "replaceDeduct": 0,
+    "payType": "CASH",
+    "outMode": "DISCNTFREE",
+    "cardTypeId": "4505859ccbc34a88b6c39290413dfee8",
+    "freeMoney": 0,
+    "controlFour": "0000003246",
+    "equipId": "15172ab3cc07425cbb2e2a7bc62c9f88",
+    "dkTag": 0,
+    "subsystemId": "ff808081554decb10156ba30887303bd",
+    "outCarPhoto": "0000008702/NISSP_IMG_PARK_OUT/20180903/0054d387b88a47aeac73eba2c7fed207",
+    "dataType": 1,
+    "overTimeFlag": 0,
+    "eventType": "BRUSHCARD",
+    "idno": "0E4A2DE40524",
+    "inRecordId": "5de13da5911239cca1bb412d2ab1b91f",
+    "carNumber": "藏-SZX910",
+    "itemId": "5de13da5911239cca1bb412d2ab1b92f",
+    "overTimeYHMoney": 8,
+    "cardId": "11111111111111111111111111111111",
+    "controlUnitId": "ff808081554decb10156afcdba22037b",
+    "outTimeInt": "1537692622",
+    "parkCode": "Test_huguobiao",
+    "hgMoney": 0,
+    "outTime": "2018-11-27 09:55:00",
+    "genTrans": 0,
+    "overChargeTime": "2018-11-27 09:55:00",
+    "userTypeId": "4505859ccbc34a88b6c39290413dfee8",
+    "isReal": 0,
+    "sendFlag": 1,
+    "parkName": "胡国彪测试车场",
+    "ysMoney": 8,
+    "fileSendCount": 0,
+    "yhMoney": 8,
+    "parkingTime": 5647,
+    "operatorName": "何印茹",
+    "withHoldMoney": 0,
+    "inEquipId": "587b7c20dabb43ecae2f75c5d3010704",
+    "inEquipName": "LG-BA双进右14",
+    "controlTwo": "cqfgs",
+    "outOperator": "何印茹",
+    "outEquipCode": "20",
+    "overTimeSSMoney": 0,
+    "ssMoney": 0,
+    "controlThree": "hrzdcq",
+    "parkInId": "9de13da59944499ca7bb958d4db4722f",
+    "inTotal": 0,
+    "payTypeName": "CASH",
+    "inTime": "2018-11-27 09:52:00",
+    "outEquipName": "BA-LG双出右16",
+    "inEquipCode": "2",
+    "recordFlags": {
+        "plateNoFrom": 1,
+        "onlineCalcType": "CFTC"
+    }
+}
