@@ -49,6 +49,7 @@ public class TokenServiceImpl {
 	 */
 	public String getAccessToken() {
 		// 判断当前token是否在有效期内
+
 		if (tokenBean!=null && tokenBean.getAccessToken()!=null) { 
 			if((System.currentTimeMillis()-tokenBean.getUpdateTime().getTime())/1000 < (tokenBean.getExpiresIn()-300)){
 				logger.debug("返回有效期内的access_token: {}", tokenBean.getAccessToken());
@@ -60,9 +61,9 @@ public class TokenServiceImpl {
 		urlBuilder.append("?appid=").append(appid);
 		urlBuilder.append("&secret=").append(secret);
 		urlBuilder.append("&grant_type=").append("client_credential");
-		logger.debug("获取access_token请求地址: {}", urlBuilder);
+		logger.info("获取access_token请求地址: {}", urlBuilder);
 		String result = OkHttpUtil.get(urlBuilder.toString());
-		logger.debug("获取access_token返回数据: {}", result);
+		logger.info("获取access_token返回数据: {}", result);
 		tokenBean = JsonUtil.toObject(result, WeixinTokenBean.class);
 		if (tokenBean!=null && tokenBean.getAccessToken()!=null) {
 			tokenBean.setUpdateTime(new Date());
@@ -92,7 +93,15 @@ public class TokenServiceImpl {
 	
 		userListBean  = JsonUtil.toObject(result, WeixinUserListBean.class);
 		
-		return userListBean.getData().get("openid");
+		if (userListBean!=null && userListBean.getData()!=null) {
+			userListBean.setUpdateTime(new Date());
+			logger.debug("返回新获取的openid: {}", userListBean.getData().get("openid"));
+			return userListBean.getData().get("openid");
+		}
+		
+		logger.error("获取openid信息失败!, 返回null");
+		return null;
+		
 		
 	}
 }
