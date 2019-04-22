@@ -103,18 +103,19 @@ public class WXPushController {
              String resultStr = OkHttpUtil.postJson(postUrl, jsonObject.toJSONString());
              JSONObject result = JSON.parseObject(resultStr);
              int errcode = result.getIntValue("errcode");
+             String errmsg= result.getString("errmsg");
              if(errcode == 0){
                  // 发送成功
             	
-            	 logger.info("-------------------->>openId"+openid+":消息推送成功");
+            	 logger.info("-------------------->>openId："+openid+":消息推送成功");
              } else {
                  // 发送失败
-            	 logger.error("-------------------->>openId"+openid+":消息推送失败");
+            	 logger.error("-------------------->>openId："+openid+":消息推送失败,errcode:"+errcode+",errmsg:"+errmsg);
              }
          }
          long end =System.currentTimeMillis();
          StringBuffer resultSb = new StringBuffer("发送完成，共发送："); 
-         resultSb.append(openids.size()).append("条").append(end-start).append("ms");
+         resultSb.append(openids.size()).append("条，共耗时").append(end-start).append("ms");
         
 		 
 		 try {
