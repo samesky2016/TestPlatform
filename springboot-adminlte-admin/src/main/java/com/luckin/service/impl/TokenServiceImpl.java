@@ -51,7 +51,7 @@ public class TokenServiceImpl {
 		// 判断当前token是否在有效期内
 
 		if (tokenBean!=null && tokenBean.getAccessToken()!=null) { 
-			if((System.currentTimeMillis()-tokenBean.getUpdateTime().getTime())/1000 < (tokenBean.getExpiresIn()-300)){
+			if((System.currentTimeMillis()-tokenBean.getUpdateTime().getTime())/1000 < (tokenBean.getExpiresIn()-600)){
 				logger.debug("返回有效期内的access_token: {}", tokenBean.getAccessToken());
 				return tokenBean.getAccessToken();
 			}
@@ -78,7 +78,7 @@ public class TokenServiceImpl {
 		
 		// 判断当前userList是否在有效期内
 		if (userListBean!=null && userListBean.getData()!=null) { 
-			if((System.currentTimeMillis()-userListBean.getUpdateTime().getTime())/1000 < (tokenBean.getExpiresIn()-300)){
+			if((System.currentTimeMillis()-userListBean.getUpdateTime().getTime())/1000 < (tokenBean.getExpiresIn()-600)){
 				logger.debug("返回用户列表: {}", userListBean.getData().get("openid"));
 				return  userListBean.getData().get("openid");
 			}
