@@ -37,7 +37,7 @@ public class Mock extends Model<Mock> {
     /**
      * 状态码
      */
-	private String responseCode;
+	private String responseCode="200";
 	
     /**
      * 用例名
