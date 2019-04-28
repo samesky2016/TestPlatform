@@ -142,6 +142,7 @@ public class WXPushController {
 
 	}
 	
+	//功能未实现
 	@RequestMapping("/saveOpenid")
 	public void saveOpenid(HttpServletRequest req, HttpServletResponse res) {
 		wxTagidListBean.getTagidList().clear();
