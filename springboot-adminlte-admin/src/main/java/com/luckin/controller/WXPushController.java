@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.luckin.common.bean.WeixinTagidListBean;
 import com.luckin.common.util.DateUtils;
 import com.luckin.common.util.OkHttpUtil;
 import com.luckin.service.impl.TokenServiceImpl;
@@ -29,6 +32,9 @@ public class WXPushController {
 
 	@Autowired
 	private TokenServiceImpl tokenServiceImpl;
+	
+	@Autowired
+	private WeixinTagidListBean wxTagidListBean;
 	/** 获取所有的关注用户 */
 	public static final String SENDMSG_URL = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=";
 	protected static Logger logger = LoggerFactory.getLogger(WXPushController.class);
@@ -134,6 +140,32 @@ public class WXPushController {
 			e.printStackTrace();
 		}
 
+	}
+	
+	@RequestMapping("/saveOpenid")
+	public void saveOpenid(HttpServletRequest req, HttpServletResponse res) {
+		wxTagidListBean.getTagidList().clear();
+		List<String> tagList=new ArrayList<>();
+		Map<String,List<String>>tagMap=new HashMap<String, List<String>>();
+		
+		String token=tokenServiceImpl.getAccessToken();
+		List<String> openids = tokenServiceImpl.getAllOpenId(token);
+		for(String openid:openids) {
+			Map<String,List<String>> tagidList=tokenServiceImpl.getUserInfo(openid, token);
+			for(String key:tagidList.keySet()) {
+				tagList.clear();
+				tagList.add(key);
+				
+				for(String tagid:tagidList.get(key)) {					
+					tagMap.put(tagid, tagList);
+				
+				}
+				
+			}
+		}
+		wxTagidListBean.setTagidList(tagMap);
+		
+		
 	}
 
 	// 字符串读取

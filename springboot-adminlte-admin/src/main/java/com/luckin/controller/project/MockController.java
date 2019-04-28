@@ -1,13 +1,8 @@
 package com.luckin.controller.project;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.luckin.common.anno.Log;
-import com.luckin.common.bean.Rest;
-import com.luckin.common.controller.SuperController;
-import com.luckin.entity.Mock;
-import com.luckin.entity.Testcase;
-import com.luckin.service.*;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-import java.util.Map;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.luckin.common.anno.Log;
+import com.luckin.common.bean.Rest;
+import com.luckin.common.controller.SuperController;
+import com.luckin.entity.Mock;
+import com.luckin.service.MockService;
+import com.luckin.service.ProjectService;
 
 /**
  * 测试用例控制器
@@ -60,6 +61,8 @@ public class MockController extends SuperController{
     @RequestMapping("/doAdd")
     @ResponseBody
     public  Rest doAdd(Mock mock){
+    	if(mock.getResponseCode()==null||"".equals(mock.getResponseCode())) mock.setResponseCode("200");
+    		
     	mockService.insertMock(mock);
     	return Rest.ok();
     }

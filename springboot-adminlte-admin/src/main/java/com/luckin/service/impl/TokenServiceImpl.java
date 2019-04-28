@@ -3,15 +3,15 @@ package com.luckin.service.impl;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.luckin.common.bean.WeixinTokenBean;
+import com.luckin.common.bean.WeixinUserInfoBean;
 import com.luckin.common.bean.WeixinUserListBean;
 import com.luckin.common.util.JsonUtil;
 import com.luckin.common.util.OkHttpUtil;
@@ -29,13 +29,19 @@ public class TokenServiceImpl {
 	/** 缓存user List信息 */
 	private WeixinUserListBean userListBean;
 	
+	/** 用户信息 */
+	private WeixinUserInfoBean wxuserInfoBean;
+	
+
+	
 	private Logger logger = LoggerFactory.getLogger(TokenServiceImpl.class);
 	
 	/** 获取access_token地址 */
 	public static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token";
 	/** 获取所有的关注用户*/
 	public static final String OPENID_URL = "https://api.weixin.qq.com/cgi-bin/user/get";
-	
+	/** 获取所有的关注用户信息*/
+	public static final String USER_INFO_URL = "https://api.weixin.qq.com/cgi-bin/user/info";
 	@Value("${wechat.appid}")
 	private String appid;
 	@Value("${wechat.secret}")
@@ -101,6 +107,24 @@ public class TokenServiceImpl {
 		
 		logger.error("获取openid信息失败!, 返回null");
 		return null;
+		
+		
+	}
+	
+	public Map<String,List<String>> getUserInfo(String openid,String token) {
+		Map<String,List<String>> tagidMap = new HashMap<>();
+		StringBuilder urlBuilder = new StringBuilder(USER_INFO_URL);
+		urlBuilder.append("?access_token=").append(token);
+		urlBuilder.append("&openid=").append(openid);
+		logger.debug("获取getUserInfo请求地址: {}", urlBuilder);
+		String result = OkHttpUtil.get(urlBuilder.toString());
+		logger.debug("获取getUserInfo返回数据: {}", result);
+	
+		wxuserInfoBean  = JsonUtil.toObject(result, WeixinUserInfoBean.class);
+		
+		tagidMap.put(wxuserInfoBean.getOpenid(), wxuserInfoBean.getTagid_list());
+
+		return tagidMap;
 		
 		
 	}
